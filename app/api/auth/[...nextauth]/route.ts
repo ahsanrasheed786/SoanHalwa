@@ -6,7 +6,7 @@ import GoogleProvider from "next-auth/providers/google";
 import bcrypt from "bcryptjs";
 import prisma from "@/utils/db";
 import { nanoid } from "nanoid";
-
+ 
 export const authOptions: any = {
   // Configure one or more authentication providers
   providers: [

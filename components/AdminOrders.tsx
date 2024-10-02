@@ -1,15 +1,6 @@
 "use client";
 
-// *********************
-// Role of the component: Component that displays all orders on admin dashboard page
-// Name of the component: AdminOrders.tsx
-// Developer: Aleksandar Kuzmanovic
-// Version: 1.0
-// Component call: <AdminOrders />
-// Input parameters: No input parameters
-// Output: Table with all orders
-// *********************
-
+ 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 
@@ -18,9 +9,12 @@ const AdminOrders = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const response = await fetch("http://localhost:3001/api/orders");
+      const response = await fetch("http://localhost:3000/api/customer_order_product");
       const data = await response.json();
       setOrders(data);
+      // console.log(data[0].customerOrderId)
+      console.log(data)
+
     };
     fetchOrders();
   }, []);
@@ -39,7 +33,7 @@ const AdminOrders = () => {
                 </label>
               </th>
               <th>Order ID</th>
-              <th>Name and country</th>
+              <th>Name    </th>
               <th>Status</th>
               <th>Subtotal</th>
               <th>Date</th>
@@ -50,7 +44,8 @@ const AdminOrders = () => {
             {/* row 1 */}
             {orders &&
               orders.map((order) => (
-                <tr key={order?.id}>
+                // console.log(customerOrderId)
+                <tr key={order?.customerOrderId}>
                   <th>
                     <label>
                       <input type="checkbox" className="checkbox" />
@@ -59,35 +54,34 @@ const AdminOrders = () => {
 
                   <td>
                     <div>
-                      <p className="font-bold">#{order?.id}</p>
+                      <p className="font-bold">#{order?.customerOrderId}</p>
                     </div>
                   </td>
 
                   <td>
                     <div className="flex items-center gap-5">
                       <div>
-                        <div className="font-bold">{order?.name}</div>
-                        <div className="text-sm opacity-50">{order?.country}</div>
+                        <div className="font-bold">{order?.customerOrder?.name } {order?.customerOrder?.lastname }</div>
+                        {/* <div className="text-sm opacity-50">{order?.customerOrder?.country}</div> */}
                       </div>
                     </div>
                   </td>
 
                   <td>
                     <span className="badge badge-success text-white badge-sm">
-                      {order?.status}
+                      {order?.customerOrder?.status}
                     </span>
                   </td>
 
                   <td>
-                    <p>${order?.total}</p>
+                    <p>${order?.customerOrder?.total}</p>
                   </td>
 
-                  <td>{ new Date(Date.parse(order?.dateTime)).toDateString() }</td>
+                  <td>{ new Date(Date.parse(order?.customerOrder?.dateTime)).toDateString() }</td>
                   <th>
                     <Link
-                      href={`/admin/orders/${order?.id}`}
-                      className="btn btn-ghost btn-xs"
-                    >
+                      href={`/admin/orders/${order?.customerOrderId}`}
+                      className="btn btn-ghost btn-xs">
                       details
                     </Link>
                   </th>

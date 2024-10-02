@@ -21,16 +21,19 @@ interface ImageItem {
 
 const SingleProductPage = async ({ params }: SingleProductPageProps) => {
   // sending API request for a single product with a given product slug
+  // ${process.env.NEXT_PUBLIC_WEBSITE_URL}
   const data = await fetch(
-    `http://localhost:3001/api/slugs/${params.productSlug}`
-  );
-  const product = await data.json();
-
+    `${process.env.WEBSITE_URL}/api/products/${params.productSlug}`,
+    {      cache: "no-store",
+    }
+  ); 
+   const product = await data.json();
+ 
   // sending API request for more than 1 product image if it exists
-  const imagesData = await fetch(
-    `http://localhost:3001/api/images/${product.id}`
-  );
-  const images = await imagesData.json();
+  // const imagesData = await fetch( 
+  //   `${process.env.WEBSITE_URL}/api/images/${product.id}`
+  // );
+  // const images = await imagesData.json();
 
   if (!product || product.error) {
     notFound();
@@ -41,24 +44,22 @@ const SingleProductPage = async ({ params }: SingleProductPageProps) => {
       <div className="max-w-screen-2xl mx-auto">
         <div className="flex justify-center gap-x-16 pt-10 max-lg:flex-col items-center gap-y-5 px-5">
           <div>
-            <Image
+            {/* <Image
               src={product?.mainImage ? `/${product?.mainImage}` : "/product_placeholder.jpg"}
               width={500}
               height={500}
               alt="main image"
               className="w-auto h-auto"
-            />
+            /> */}
             <div className="flex justify-around mt-5 flex-wrap gap-y-1 max-[500px]:justify-center max-[500px]:gap-x-1">
-              {images?.map((imageItem: ImageItem) => (
+              {/* {images?.map((imageItem: ImageItem) => (
                 <Image
                   key={imageItem.imageID}
                   src={`/${imageItem.image}`}
                   width={100}
                   height={100}
                   alt="laptop image"
-                  className="w-auto h-auto"
-                />
-              ))}
+                  className="w-auto h-auto" /> ))} */}
             </div>
           </div>
           <div className="flex flex-col gap-y-7 text-black max-[500px]:text-center">
@@ -68,7 +69,7 @@ const SingleProductPage = async ({ params }: SingleProductPageProps) => {
             <StockAvailabillity stock={94} inStock={product?.inStock} />
             <SingleProductDynamicFields product={product} />
             <div className="flex flex-col gap-y-2 max-[500px]:items-center">
-              <AddToWishlistBtn product={product} slug={params.productSlug} />
+              {/* <AddToWishlistBtn product={product} slug={params.productSlug} /> */}
               <p className="text-lg">
                 SKU: <span className="ml-1">abccd-18</span>
               </p>
