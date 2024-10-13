@@ -234,9 +234,7 @@ const DashboardProductDetails = ({
             </select>
           </label>
         </div>
-        {/* Product inStock select input div - end */}
-        {/* Product category select input div - start */}
-        <div>
+          <div>
           <label className="form-control w-full max-w-xs">
             <div className="label">
               <span className="label-text">Category:</span>

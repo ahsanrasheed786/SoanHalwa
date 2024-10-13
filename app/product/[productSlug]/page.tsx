@@ -6,6 +6,8 @@ import {
   SingleProductDynamicFields,
   AddToWishlistBtn,
 } from "@/components";
+import ReviewSection from '@/components/ReviewSection';
+
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import React from "react";
@@ -62,6 +64,10 @@ const SingleProductPage = async ({ params }: SingleProductPageProps) => {
                   className="w-auto h-auto" /> ))} */}
             </div>
           </div>
+          {/* Review Section */}
+        <div className="py-16">
+          <ReviewSection productId={product.id} /> 
+        </div>
           <div className="flex flex-col gap-y-7 text-black max-[500px]:text-center">
             <SingleProductRating rating={product?.rating} />
             <h1 className="text-3xl">{product?.title}</h1>
